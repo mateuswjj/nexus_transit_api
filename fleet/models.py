@@ -19,7 +19,7 @@ class Vehicle(models.Model):
     updated_at = models.TimeField(auto_now=True)
     
     external_id = models.CharField(max_length=100, unique=True)
-    speed = models.IntegerField()
+    speed = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     
     current_position = models.PointField(srid=4326)
     heading = models.CharField(max_length=255)
