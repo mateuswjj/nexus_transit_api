@@ -1,4 +1,20 @@
 services:
+  backend:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    profiles:
+      - app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+    depends_on:
+      - db
   db:
     image: postgis/postgis:16-3.4
     container_name: nexustransit_db
