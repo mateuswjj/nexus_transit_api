@@ -1,3 +1,13 @@
-from django.contrib import admin
+from django.contrib.gis import admin
+from django.contrib.gis.forms import OSMWidget
 
-# Register your models here.
+from .models import Vehicle
+
+
+class VehicleMapWidget(OSMWidget):
+    map_srid = 4326
+
+
+@admin.register(Vehicle)
+class VehicleAdmin(admin.GISModelAdmin):
+    gis_widget = VehicleMapWidget
