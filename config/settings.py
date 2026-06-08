@@ -125,3 +125,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+GDAL_LIBRARY_PATH = config("GDAL_LIBRARY_PATH", default=None)
+GEOS_LIBRARY_PATH = config("GEOS_LIBRARY_PATH", default=None)
