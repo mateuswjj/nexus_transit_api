@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-# Create your views here.
+from .models import Vehicle
+from .serializers import VehicleSerializer
+
+class VehicleListApiView(APIView):
+    def get(self, request):
+        vehicles = Vehicle.objects.all()
+        serializer = VehicleSerializer(vehicles, many=True)
+        
+        return Response(serializer.data)
