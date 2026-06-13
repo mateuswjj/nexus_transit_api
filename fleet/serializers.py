@@ -3,27 +3,20 @@ from rest_framework import serializers
 from .models import Vehicle
 
 class VehicleSerializer(serializers.ModelSerializer):
-    latitude = serializers.SerializerMethodField()
-    longitude = serializers.SerializerMethodField()
-    
     class Meta:
         model = Vehicle
         fields = [
             'id',
             'name',
+            'plate',
             'external_id',
+            'is_active',
             'status',
-            'latitude',
-            'longitude',
+            'current_position',
             'speed',
             'heading',
             'last_seen_at',
             'created_at',
-            'updated_at'
+            'updated_at',
         ]
-        
-    def get_latitude(self, obj):
-        return obj.current_position.y
-    
-    def get_longitude(self, obj):
-        return obj.current_position.x
+        read_only_fields = ['id', 'created_at', 'updated_at']
