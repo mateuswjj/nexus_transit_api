@@ -30,6 +30,34 @@ class VehicleItemApiView(APIView):
         serializer = VehicleSerializer(vehicle)
         return Response(serializer.data)
 
+    def put(self, request, id):
+        vehicle = Vehicle.objects.filter(id=id).first()
+
+        if not vehicle:
+            return Response({'error': 'vehicle not found!'}, status=404)
+
+        serializer = VehicleSerializer(vehicle, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+        return Response(serializer.errors, status=400)
+
+    def patch(self, request, id):
+        vehicle = Vehicle.objects.filter(id=id).first()
+
+        if not vehicle:
+            return Response({'error': 'vehicle not found!'}, status=404)
+
+        serializer = VehicleSerializer(vehicle, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+        return Response(serializer.errors, status=400)
+
     def delete(self, request, id):
         vehicle = Vehicle.objects.filter(id=id).first()
         
